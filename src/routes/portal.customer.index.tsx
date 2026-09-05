@@ -8,9 +8,10 @@ export const Route = createFileRoute("/portal/customer/")({
 });
 
 function Overview() {
-  const recommendations = products.filter((product) =>
-    ["p1", "p2", "p3", "p4", "p11", "p12", "p13", "p14"].includes(product.id),
-  );
+  const recommendationIds = ["p11", "p12", "p13", "p14", "p1", "p2", "p3", "p4"];
+  const recommendations = recommendationIds
+    .map((id) => products.find((product) => product.id === id))
+    .filter((product): product is NonNullable<typeof product> => Boolean(product));
 
   return (
     <>

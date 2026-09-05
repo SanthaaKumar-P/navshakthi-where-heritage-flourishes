@@ -62,9 +62,10 @@ function ArtisanDashboard() {
   }, []);
 
   const totalListings = products.length + publishedCrafts.length;
-  const featuredTwinListings = products.filter((product) =>
-    ["p1", "p2", "p3", "p4", "p11", "p12", "p13", "p14"].includes(product.id),
-  );
+  const featuredTwinListingIds = ["p11", "p12", "p13", "p14", "p1", "p2", "p3", "p4"];
+  const featuredTwinListings = featuredTwinListingIds
+    .map((id) => products.find((product) => product.id === id))
+    .filter((product): product is NonNullable<typeof product> => Boolean(product));
 
   const handleDelete = (id: string) => {
     deleteArtisanListing(id);
